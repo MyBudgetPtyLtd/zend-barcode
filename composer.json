@@ -13,8 +13,7 @@
     },
     "target-dir": "Zend/Barcode",
     "require": {
-        "php": ">=5.3.3",
-        "zendframework/zend-stdlib": "self.version"
+        "php": ">=5.3.3"
     },
     "require-dev": {
         "zendframework/zendpdf": "*"
