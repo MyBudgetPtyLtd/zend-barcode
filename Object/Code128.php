@@ -269,26 +269,6 @@ class Code128 extends AbstractObject
     }
 
     /**
-     * Set text to encode
-     * @param string $value
-     * @return Code128
-     */
-    public function setText($value)
-    {
-        $this->text = $value;
-        return $this;
-    }
-
-    /**
-     * Retrieve text to encode
-     * @return string
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
-    /**
      * Get barcode checksum
      *
      * @param  string $text
