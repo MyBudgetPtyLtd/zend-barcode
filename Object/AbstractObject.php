@@ -180,6 +180,7 @@ abstract class AbstractObject implements ObjectInterface
      * @var bool
      */
     protected $addLeadingZeros = true;
+    protected $addTrailingZeros = true;
 
     /**
      * Activation of mandatory checksum
@@ -554,6 +555,30 @@ abstract class AbstractObject implements ObjectInterface
         }
         return $text;
     }
+    
+    /**
+     * Automatically add leading zeros if barcode length is fixed
+     * @param string $text
+     * @param  bool $withoutChecksum
+     * @return string
+     */
+    protected function addTrailingZeroes($text, $withoutChecksum = false)
+    {
+        if ($this->barcodeLength && $this->addTrailingZeros) {
+            $omitChecksum = (int) ($this->withChecksum && $withoutChecksum);
+            if (is_int($this->barcodeLength)) {
+                $length = $this->barcodeLength - $omitChecksum;
+                if (strlen($text) < $length) {
+                    $text = $text . str_repeat('0', $length - strlen($text));
+                }
+            } else {
+                if ($this->barcodeLength == 'even') {
+                    $text =  $text . ((strlen($text) - $omitChecksum) % 2 ? '0': $text);
+                }
+            }
+        }
+        return $text;
+    }    
 
     /**
      * Retrieve text to encode

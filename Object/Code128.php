@@ -14,6 +14,40 @@ namespace Zend\Barcode\Object;
  */
 class Code128 extends AbstractObject
 {
+    
+    /**
+     * Default options for Postnet barcode
+     * @return void
+     */
+    protected function getDefaultOptions()
+    {
+        $this->barcodeLength = 21;
+    }
+    
+    /**
+     * Retrieve text to encode
+     * @return string
+     */
+    public function getText()
+    {
+        $text = str_replace(' ', '', $this->text);
+        
+        return $this->addTrailingZeroes($text);
+    }    
+    
+    /**
+     * Retrieve text to display
+     * @return string
+     */
+    public function getTextToDisplay()
+    {
+        if ($this->withChecksumInText) {
+            return $this->getText();
+        }
+
+        return $this->text;
+    }    
+    
     /**
      * Drawing of checksum
      * (even if it's sometime optional, most of time it's required)
